@@ -1,15 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import axios from "axios";
+import usersReducer from "./redux/users";
+import auth from "./redux/auth";
+import tripReducer from "./redux/tripReducer";
+import taskReducer from "./redux/taskReducer";
+import reducer2 from "./redux/reducer2";
+import thunkMiddleware from "redux-thunk";
+import { createLogger } from "redux-logger";
 
-import tripReducer from "../reducers/tripSlice";
-import userReducer from "../reducers/userSlice";
-import singleTripReducer from "../reducers/singleTripSlice";
-import singleUserReducer from "../reducers/singleUserSlice";
-
-export const store = configureStore({
-  reducer: {
-    trips: tripReducer,
-    users: userReducer,
-    trip: singleTripReducer,
-    user: singleUserReducer,
-  },
+const reducer = combineReducers({
+  users: usersReducer,
+  trips: tripReducer,
+  tasks: taskReducer,
+  reducer2,
+  auth,
 });
+
+const store = createStore(
+  reducer,
+  applyMiddleware(thunkMiddleware.withExtraArgument({ axios }), createLogger())
+);
+
+export default store;
