@@ -6,34 +6,58 @@ require("dotenv").config();
 
 const SALT_ROUNDS = 5;
 
-const User = db.define("User", {});
- username: {
-    type: Sequelize.STRING,
-    unique: true,
+const User = db.define("User", {
+  firstName: {
+    type: DataTypes.STRING,
     allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
   },
   password: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING(64),
+    allowNull: false,
+    //add {64} to regex to check hash length? not incl bc of seed
+    // validate: { is: /^\$2[ayb]\$.{56}$/i },
   },
-  name: {
-    type: Sequelize.STRING,
+  token: {
+    type: DataTypes.TEXT,
   },
   email: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: DataTypes.STRING,
     unique: true,
+    allowNull: false,
     validate: {
       isEmail: true,
     },
   },
-  imageUrl: {
-    type: Sequelize.STRING,
-    defaultValue:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXlbMgzYw0M94bT-Sp1UGBBHLj60mz3wVtWQ&usqp=CAU",
+  phoneNumber: {
+    type: DataTypes.STRING,
   },
-//Instance Methods
+  referralEmail: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  // interests: {
+  //   type: DataTypes.STRING,
+  //   status:{
+  //     type: DataTypes.ENUM("green", "red")
+  //   }
+
+  // },
+});
+
+/**
+ * instanceMethods
+ */
 User.prototype.correctPassword = function (candidatePwd) {
-  //Comparing the plain password to an encrypted version of the password
+  //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password);
 };
 
@@ -41,7 +65,9 @@ User.prototype.generateToken = function () {
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
-//Class Methods
+/**
+ * classMethods
+ */
 User.authenticate = async function ({ username, password }) {
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
@@ -69,9 +95,11 @@ User.findByToken = async function (token) {
   }
 };
 
-//Hooks
+/**
+ * hooks
+ */
 const hashPassword = async (user) => {
-  //In case the password has been changed, we want to encrypt it with bcrypt
+  //in case the password has been changed, we want to encrypt it with bcrypt
   if (user.changed("password")) {
     user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
   }

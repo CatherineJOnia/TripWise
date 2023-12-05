@@ -49,23 +49,3 @@ const Trip = db.define(
 );
 
 module.exports = Trip;
-const Sequelize = require("sequelize");
-const db = require("../db");
-
-module.exports = db.define("trip", {
-  destination: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
-  imageUrl: {
-    type: Sequelize.STRING,
-    defaultValue:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrcbYATlVT4_N85tk77iVylqsRMeZEUxuzfg&usqp=CAU",
-  },
-  description: {
-    type: Sequelize.TEXT,
-  },
-});
