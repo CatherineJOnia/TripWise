@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline, Grid } from "@material-ui/core";
 
-import { getPlacesData } from "./api";
+import { getPlacesData } from "./api/index.js";
 import Header from "./components/Header/Header";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
 
 const App = () => {
-  const [places, setPlaces] = useState({});
-  const [coordinates, setCoordinates] = useState([]);
+  const [places, setPlaces] = useState([]);
+  const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      ({ coords: { latitude, longitude } }) => {
+      ({ coordinates: { latitude, longitude } }) => {
         setCoordinates({ lat: latitude, lng: longitude });
       }
     );
