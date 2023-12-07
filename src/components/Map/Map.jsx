@@ -1,8 +1,9 @@
 import React from 'react';
+import useEffect from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-import Rating from '@material-ui/lab';
+import Rating from '@material-ui/lab/Rating';
 
 import useStyles from './styles';
 
@@ -17,13 +18,13 @@ const Map = () => {
     <div className={classes.mapContainer}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyDWgDwEXR5sv2o5b_MLr62SwctKRxYPzzc'}}
-        defaultCenter={coordinates}
-        center={coordinates}
-        defaultZone={14}
+        // defaultCenter={0}
+        // center={0}
+        defaultZoom={14}
         margin={[50, 50 ,50, 50]}
         options={''}
-        onChange={''}
-        onChildClick={''}
+        // onChange={''}
+        // onChildClick={''}
         >
       </GoogleMapReact>
     </div>
@@ -31,3 +32,4 @@ const Map = () => {
 };
 
 export default Map;
+

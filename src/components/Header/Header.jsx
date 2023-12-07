@@ -20,7 +20,7 @@ const Header = () => {
             Explore new places
           </Typography>
           {/* <Autocomplete> */}
-            <div classname={classes.search}>
+            <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <Search />
               </div>
