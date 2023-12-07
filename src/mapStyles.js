@@ -17,6 +17,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "administrative",
     elementType: "labels",
@@ -26,6 +27,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "landscape",
     elementType: "labels",
@@ -35,6 +37,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "landscape.man_made",
     elementType: "all",
@@ -47,6 +50,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "poi",
     elementType: "labels",
@@ -56,6 +60,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "road",
     elementType: "labels",
@@ -65,6 +70,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "transit",
     elementType: "labels",
@@ -74,6 +80,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "water",
     elementType: "all",
@@ -86,6 +93,7 @@ export default [
       },
     ],
   },
+
   {
     featureType: "water",
     elementType: "labels",
